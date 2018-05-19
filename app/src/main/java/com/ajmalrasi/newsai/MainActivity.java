@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String OUTPUT_NAME = "FullyConnected_3/Softmax";
     private static final long[] INPUT_SIZE = {1,1421};
     private TensorFlowInferenceInterface inferenceInterface;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -32,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        inferenceInterface = new TensorFlowInferenceInterface(getAssets(),MODEL_FILE);
+        recyclerView = findViewById(R.id.recyclerView);
 
+
+
+
+        inferenceInterface = new TensorFlowInferenceInterface(getAssets(),MODEL_FILE);
         float[] bags = new float[1421];
         Utils utils = new Utils(getAssets());
 
