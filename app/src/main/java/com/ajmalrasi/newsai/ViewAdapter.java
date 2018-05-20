@@ -33,6 +33,7 @@ public class ViewAdapter extends RecyclerView.Adapter<BodyViewHolder> {
 
     public void setViewList(ArrayList<News> list) {
         this.list = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -44,11 +45,11 @@ public class ViewAdapter extends RecyclerView.Adapter<BodyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BodyViewHolder holder, int position) {
-        holder.populate(context, list);
+        holder.populate(context, list, position);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return list.size();
     }
 }
