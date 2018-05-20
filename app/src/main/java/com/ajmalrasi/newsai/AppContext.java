@@ -24,6 +24,19 @@ public class AppContext extends Application {
         sInstance = this;
     }
 
+
+    public String getUrl(String category) {
+        return UrlEndPoints.BASE_URL
+                + UrlEndPoints.QUEST
+                + UrlEndPoints.NAT
+                + UrlEndPoints.EQ
+                + UrlEndPoints.INDIA
+                + UrlEndPoints.AND
+                + UrlEndPoints.QUERY
+                + UrlEndPoints.EQ
+                + category;
+    }
+
     @Override
     public void onLowMemory() {
         super.onLowMemory();

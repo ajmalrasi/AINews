@@ -26,8 +26,10 @@ public class News implements Parcelable {
 
     private String topic;
     private String title;
+    private String link;
     private String thumbnails;
     private String description;
+    private String category;
     private String publishedDate;
 
     public News() {
@@ -36,8 +38,10 @@ public class News implements Parcelable {
     public News(Parcel input) {
         topic = input.readString();
         title = input.readString();
+        link = input.readString();
         thumbnails = input.readString();
         description = input.readString();
+        category = input.readString();
         publishedDate = input.readString();
     }
 
@@ -55,6 +59,14 @@ public class News implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getThumbnails() {
@@ -75,6 +87,14 @@ public class News implements Parcelable {
         this.description = description;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getPublishedDate() {
         return publishedDate;
     }
@@ -93,8 +113,10 @@ public class News implements Parcelable {
 
         dest.writeString(topic);
         dest.writeString(title);
+        dest.writeString(link);
         dest.writeString(thumbnails);
         dest.writeString(description);
+        dest.writeString(category);
         dest.writeString(publishedDate);
 
     }
