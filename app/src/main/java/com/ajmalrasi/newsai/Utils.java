@@ -38,9 +38,9 @@ public class Utils {
 
     public Utils(AssetManager asset) {
         this.parser = new JSONParser();
-        this.sentence = new ArrayList<>();
         this.assetManager = asset;
         this.tensorflow = new TensorFlowInferenceInterface(this.assetManager, MODEL_FILE);
+        this.stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
     }
 
 
@@ -72,7 +72,7 @@ public class Utils {
         String cleaned = str.replaceAll("[^a-zA-Z]"," ")
                     .replaceAll("\\x20\\w{1,2}\\x20"," ");
         String[] temp = cleaned.toLowerCase().split("\\s");
-        stemmer = new SnowballStemmer(SnowballStemmer.ALGORITHM.ENGLISH);
+        sentence = new ArrayList<>();
         for (String cha:temp ) {
             sentence.add(String.valueOf(stemmer.stem(cha)));
         }
