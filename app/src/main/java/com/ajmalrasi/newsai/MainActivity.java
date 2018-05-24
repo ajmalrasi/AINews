@@ -1,5 +1,9 @@
 package com.ajmalrasi.newsai;
 
+import android.content.ActivityNotFoundException;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import com.android.volley.Request;
@@ -24,7 +29,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ClickListener {
 
     public static final String TAG = "APP";
     Utils utils;
@@ -43,13 +48,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     return true;
                 case R.id.navigation_technology:
-                    //sendRequest("TECHNOLOGY");
-                    //adapter.setViewList(newsList);
+                    sendRequest("TECHNOLOGY");
+                    adapter.setViewList(newsList);
 
                     return true;
                 case R.id.navigation_sports:
-                    //sendRequest("SPORTS");
-                    //adapter.setViewList(newsList);
+                    sendRequest("SPORTS");
+                    adapter.setViewList(newsList);
                     return true;
             }
             return false;
@@ -63,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ViewAdapter(this);
+        adapter = new ViewAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         BottomNavigationView navigation = findViewById(R.id.navigation);
@@ -149,5 +154,19 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void ItemClicked(News item) {
 
+        try {
+            Intent i = new Intent("android.intent.action.MAIN");
+            i.setComponent(ComponentName.unflattenFromString("com.android.chrome/com.android.chrome.Main"));
+            i.addCategory("android.intent.category.LAUNCHER");
+            i.setData(Uri.parse(item.getLink()));
+            startActivity(i);
+        } catch (ActivityNotFoundException e) {
+            // Chrome is not installed
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(item.getLink()));
+            startActivity(i);
+        }
+    }
 }
