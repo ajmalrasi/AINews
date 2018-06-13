@@ -32,8 +32,7 @@ public class Utils {
     private static final String INPUT_NODE = "InputData/X";
     private static final String[] OUTPUT_NODE = new String[]{"FullyConnected_2/Softmax"};
     private static final String OUTPUT_NAME = "FullyConnected_2/Softmax";
-    //    private static final long[] INPUT_SIZE = {1, 1421};
-    private static final long[] INPUT_SIZE = {1, 1902};
+    private static final long[] INPUT_SIZE = {1, 2639};
     private TensorFlowInferenceInterface tensorflow;
 
 
@@ -48,8 +47,7 @@ public class Utils {
     public String predict(String title) {
         String label = "Undefined";
 
-//        float[] bags = new float[1421];
-        float[] bags = new float[1902];
+        float[] bags = new float[2639];
         try {
             float[] bag = read(title);
             bags = bag;
@@ -58,8 +56,7 @@ public class Utils {
         }
         tensorflow.feed(INPUT_NODE, bags, INPUT_SIZE);
         tensorflow.run(OUTPUT_NODE);
-//        float[] result = new float[51];
-        float[] result = new float[47];
+        float[] result = new float[76];
         tensorflow.fetch(OUTPUT_NAME, result);
         int argMax = ArrayMath.argmax(result);
         try {
